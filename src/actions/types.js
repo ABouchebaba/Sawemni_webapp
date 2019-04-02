@@ -29,3 +29,7 @@ export const ADD_BRAND = "ADD_BRAND";
 export const UPDATE_BRAND = "UPDATE_BRAND";
 export const DELETE_BRAND = "DELETE_BRAND";
 export const BRAND_LOADING = "BRAND_LOADING";
+
+export const GET_USERS = "GET_USERS";
+export const UPDATE_USER = "UPDATE_USER";
+export const USER_LOADING = "USER_LOADING";

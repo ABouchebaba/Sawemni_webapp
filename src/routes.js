@@ -42,7 +42,7 @@ const Users = React.lazy(() => import("./views/Users/Users"));
 const Products = React.lazy(() => import("./views/Products/Products"));
 const Brands = React.lazy(() => import("./views/Brands/Brands"));
 const Markets = React.lazy(() => import("./views/Markets/Markets"));
-const User = React.lazy(() => import("./views/Users/User"));
+const User = React.lazy(() => import("./views/Users/Users"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [

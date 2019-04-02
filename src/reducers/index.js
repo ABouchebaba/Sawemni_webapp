@@ -5,6 +5,7 @@ import fabricantReducer from "./fabricantReducer";
 import brandReducer from "./brandReducer";
 import productReducer from "./productReducer";
 import marketReducer from "./marketReducer";
+import userReducer from "./userReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   fabricant: fabricantReducer,
   brand: brandReducer,
   product: productReducer,
-  market: marketReducer
+  market: marketReducer,
+  user: userReducer
 });
