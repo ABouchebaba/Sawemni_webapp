@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - v10
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8
+      - g++-4.8
+env:
+  global:
+    - CXX=g++-4.8
+deploy:
+  provider: heroku
+  api_key:
+    secure: SgVtdJlSYfa3xX3LOkzaK1YcsoExbMUtyOVinns7Q883p5OEMCsdVbwOwViVhBeY59A5KXvQtFXco3Kyk1TtuuVkpY77TYA4g735PynGM8KiVS/x6z65IPujHWNLh9egZuZiqsJSmgFknhipK4FqSUlOv0kZ5cF2N/2S4VCO1P9Em4QJO3ugYMHGyssvvsgZ5u4Jk9Gzt372UwNmo6N0h97VADarrD0Qr1bZvzV4Ge8aUNOkS8B9Qq9Ozgh17T0UMm5U9ONmjQkFtZmyqN2I1oDPqwqgdQ7WW0Yav2tKSqyt5WettICQ3JGxhgkRsd+Jz4jeMSUcLxZVZhcPXguiy2CE1rfS35ltytsn1NEDPdz8noRDZfNsmj2U+y+iKPbQ/mbaJ5jtln2kBuMhxSGwI3ZNkFhNXNfTH2LShGMJJIjUZ5bmnqryrrk1JAm5bBa4xMqT75AkFRxxpiX1iqXd3kc2W9n3TYkIt10NKxY3PuDZRCO6fVKBqguDUsCk+yhWi9i55v54f/yGnera6iQNeWqwMX6QgG1JIxsoiWNKNAMmwJOcHf+vJvNFN6msNW24rcSofSQJ4JVH2A7V8n1ZkoQiXyAvlc81RGgMWM82ZGimz1BzSsMNA7tMnlNLfS7XLEf/IeuxchLliezqfRW0nr7sdia2NekjuXRQS4IPjNs=
+  app: sayaradz-webapp

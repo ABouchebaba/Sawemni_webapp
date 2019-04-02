@@ -1,0 +1,31 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
+export const GET_FABRICANTS = "GET_FABRICANTS";
+export const GET_FABRICANT = "GET_FABRICANT";
+export const ADD_FABRICANT = "ADD_FABRICANT";
+export const UPDATE_FABRICANT = "UPDATE_FABRICANT";
+export const DELETE_FABRICANT = "DELETE_FABRICANT";
+export const FABRICANT_LOADING = "FABRICANT_LOADING";
+
+export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_PRODUCT = "GET_PRODUCT";
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const PRODUCT_LOADING = "PRODUCT_LOADING";
+
+export const GET_MARKETS = "GET_MARKETS";
+export const GET_MARKET = "GET_MARKET";
+export const ADD_MARKET = "ADD_MARKET";
+export const UPDATE_MARKET = "UPDATE_MARKET";
+export const DELETE_MARKET = "DELETE_MARKET";
+export const MARKET_LOADING = "PRODUCT_LOADING";
+
+export const GET_BRANDS = "GET_BRANDS";
+export const GET_BRAND = "GET_BRAND";
+export const ADD_BRAND = "ADD_BRAND";
+export const UPDATE_BRAND = "UPDATE_BRAND";
+export const DELETE_BRAND = "DELETE_BRAND";
+export const BRAND_LOADING = "BRAND_LOADING";
