@@ -35,8 +35,14 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault()
-    this.props.logoutUser()
-    this.props.history.push('/login')
+    console.log(this.props.auth.user.user_id)
+    if (this.props.auth.user.user_id) {
+      this.props.logoutUser(this.props.auth.user.user_id)
+    } 
+    else {
+      this.props.logoutUser(this.props.auth.user.id)
+    }
+   this.props.history.push('/login')
   }
 
   render() {
