@@ -19,28 +19,10 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { ADD_PRODUCT, UPDATE_PRODUCT } from "../../actions/types";
 
-const handleDelete = (props, product) => {
-  confirmAlert({
-    title: "Confirmation",
-    message: "Etes-vous sure de vouloir supprimer ce produit ?",
-    buttons: [
-      {
-        label: "Oui",
-        onClick: () => props.handleDelete(product.id)
-      },
-      {
-        label: "Non",
-        onClick: () => {}
-      }
-    ]
-  });
-};
-
 function ProductRow(props) {
-  let count = 0;
   const product = props.product;
   return (
-    <tr key={count++}>
+    <tr key={product.id}>
       <td>{product.id}</td>
       <td>{product.PName}</td>
       <td>{product.category}</td>
@@ -48,12 +30,18 @@ function ProductRow(props) {
       <td>{product.producer}</td>
       <td>{product.description}</td>
       <td>{product.RefPrice}</td>
-      <td>{product.imgURL}</td>
+      <td>
+        <img
+          src={process.env.REACT_APP_BACKEND_URL_LOCAL + "/" + product.imgURL}
+          width="75px"
+          height="75px"
+        />
+      </td>
       <td style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           className="float-left mr-1"
           color="danger"
-          onClick={() => handleDelete(props, product)}
+          onClick={() => props.handleDelete(product.id)}
         >
           <i className="fa fa-spinner fa-trash" />
         </Button>
@@ -79,6 +67,23 @@ class Products extends Component {
   componentDidMount() {
     this.props.getProducts();
   }
+
+  handleDelete = product_id => {
+    confirmAlert({
+      title: "Confirmation",
+      message: "Etes-vous sure de vouloir supprimer ce produit ?",
+      buttons: [
+        {
+          label: "Oui",
+          onClick: () => this.props.deleteProduct(product_id)
+        },
+        {
+          label: "Non",
+          onClick: () => {}
+        }
+      ]
+    });
+  };
 
   render() {
     const { products, loading } = this.props.product;
@@ -117,13 +122,15 @@ class Products extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {products.map((product, index) => (
-                        <ProductRow
-                          key={index}
-                          product={product}
-                          handleDelete={this.props.deleteProduct}
-                        />
-                      ))}
+                      {products.map((product, index) => {
+                        return (
+                          <ProductRow
+                            key={index}
+                            product={product}
+                            handleDelete={this.handleDelete}
+                          />
+                        );
+                      })}
                     </tbody>
                   </Table>
                 </CardBody>
@@ -142,6 +149,7 @@ class Products extends Component {
                     imgURL=""
                     btnColor="primary"
                     btnText="Ajouter"
+                    className="Ajouteurssss"
                   />
                 </Col>
               </Row>

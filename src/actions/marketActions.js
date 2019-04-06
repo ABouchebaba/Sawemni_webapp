@@ -17,16 +17,15 @@ export const addMarket = data => dispatch => {
   axios
     .post(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/markets`, data)
     .then(res => {
-      console.log(data);
       return dispatch({
         type: ADD_MARKET,
-        payload: data
+        payload: res.data
       });
     })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.data
       })
     );
 };
@@ -37,19 +36,15 @@ export const updateMarket = (id, data) => dispatch => {
   axios
     .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/markets/${id}`, data)
     .then(res => {
-      console.log(data);
       return dispatch({
         type: UPDATE_MARKET,
-        payload: {
-          ...data,
-          id: id
-        }
+        payload: res.data
       });
     })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.data
       })
     );
 };
@@ -60,7 +55,6 @@ export const getMarkets = () => dispatch => {
   axios
     .get(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/markets`)
     .then(res => {
-      console.log(res);
       return dispatch({
         type: GET_MARKETS,
         payload: res.data
@@ -104,10 +98,9 @@ export const deleteMarket = id => dispatch => {
       })
     )
     .catch(err => {
-      console.log(err);
       return dispatch({
         type: GET_ERRORS,
-        payload: err
+        payload: err.data
       });
     });
 };

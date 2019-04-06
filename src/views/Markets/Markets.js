@@ -19,36 +19,24 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { ADD_MARKET, UPDATE_MARKET } from "../../actions/types";
 
-const handleDelete = (props, market) => {
-  confirmAlert({
-    title: "Confirmation",
-    message: "Etes-vous sure de vouloir supprimer ce supermarché ?",
-    buttons: [
-      {
-        label: "Oui",
-        onClick: () => props.handleDelete(market.id)
-      },
-      {
-        label: "Non",
-        onClick: () => {}
-      }
-    ]
-  });
-};
-
 function MarketRow(props) {
-  let count = 0;
   const market = props.market;
   return (
-    <tr key={count++}>
+    <tr key={market.id}>
       <td>{market.name}</td>
-      <td>{market.logo}</td>
-      <td>{market.isActive}</td>
+      <td>
+        <img
+          src={process.env.REACT_APP_BACKEND_URL_LOCAL + "/" + market.logo}
+          width="75px"
+          height="75px"
+        />
+      </td>
+      <td>{market.isActive == 1 ? "Actif" : "Non Actif"}</td>
       <td style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           className="float-left mr-1"
           color="danger"
-          onClick={() => handleDelete(props, market)}
+          onClick={() => props.handleDelete(props, market)}
         >
           <i className="fa fa-spinner fa-trash" />
         </Button>
@@ -76,6 +64,23 @@ class Markets extends Component {
       this.props.getMarkets();
     }
   }*/
+
+  handleDelete = market_id => {
+    confirmAlert({
+      title: "Confirmation",
+      message: "Etes-vous sure de vouloir supprimer ce supermarché ?",
+      buttons: [
+        {
+          label: "Oui",
+          onClick: () => this.props.handleDelete(market_id)
+        },
+        {
+          label: "Non",
+          onClick: () => {}
+        }
+      ]
+    });
+  };
 
   render() {
     const { markets, loading } = this.props.market;
@@ -113,7 +118,7 @@ class Markets extends Component {
                         <MarketRow
                           key={index}
                           market={market}
-                          handleDelete={this.props.deleteMarket}
+                          handleDelete={this.deleteMarket}
                         />
                       ))}
                     </tbody>

@@ -44,27 +44,31 @@ export default function(state = initialState, action) {
       return {
         ...state,
         products: [
-          action.payload,
-          ...state.products.filter(product => product.id !== action.payload.id)
+          ...state.products.map(product => {
+            if (product.id !== action.payload.id) {
+              return product;
+            } else {
+              return action.payload;
+            }
+          })
         ]
       };
     case ADD_PRODUCT:
       NotificationManager.success("Ajout éffectué avec succés", "Ajout");
       return {
         ...state,
-        products: [action.payload, ...state.products]
+        products: [...state.products, action.payload]
       };
     case DELETE_PRODUCT:
-      console.log(action.payload);
       NotificationManager.success(
         "Suppression éffectuée avec succés",
         "Suppression"
       );
       return {
         ...state,
-        products: state.products.filter(
-          product => product.id !== action.payload
-        )
+        products: [
+          ...state.products.filter(product => product.id !== action.payload)
+        ]
       };
     default:
       return state;

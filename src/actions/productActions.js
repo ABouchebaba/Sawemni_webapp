@@ -12,44 +12,39 @@ import {
 } from "./types";
 
 // Add Product
-export const addProduct = fabData => dispatch => {
+export const addProduct = data => dispatch => {
   dispatch(clearErrors());
   axios
-    .post(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products`, fabData)
+    .post(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products`, data)
     .then(res => {
-      console.log(fabData);
       return dispatch({
         type: ADD_PRODUCT,
-        payload: fabData
+        payload: res.data
       });
     })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.data
       })
     );
 };
 
 // Update Product
-export const updateProduct = (id, fabData) => dispatch => {
+export const updateProduct = (id, data) => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products/${id}`, fabData)
+    .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products/${id}`, data)
     .then(res => {
-      console.log(fabData);
       return dispatch({
         type: UPDATE_PRODUCT,
-        payload: {
-          ...fabData,
-          id: id
-        }
+        payload: res.data
       });
     })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.data
       })
     );
 };
@@ -60,7 +55,6 @@ export const getProducts = () => dispatch => {
   axios
     .get(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products`)
     .then(res => {
-      console.log(res);
       return dispatch({
         type: GET_PRODUCTS,
         payload: res.data
@@ -104,10 +98,9 @@ export const deleteProduct = id => dispatch => {
       })
     )
     .catch(err => {
-      console.log(err);
       return dispatch({
         type: GET_ERRORS,
-        payload: err
+        payload: err.data
       });
     });
 };
