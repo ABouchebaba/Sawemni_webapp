@@ -1,6 +1,7 @@
 import {
     GET_USERS,
     UPDATE_USER,
+    GET_USER,
     USER_LOADING
   } from "../actions/types";
   import {
@@ -11,6 +12,7 @@ import {
   const initialState = {
     users: [],
     user: {},
+    userprices: [],
     loading: false
   };
   
@@ -27,6 +29,12 @@ import {
           users: action.payload,
           loading: false
         };
+      case GET_USER:
+      return {
+        ...state,
+        userprices: action.payload,
+        loading: false
+      };
       case UPDATE_USER:
         NotificationManager.success(
           "Mise à jour éffectuée avec succés",

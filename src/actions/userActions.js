@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   UPDATE_USER,
   GET_ERRORS,
+  GET_USER,
   CLEAR_ERRORS,
   GET_USERS,
   USER_LOADING
@@ -47,6 +48,25 @@ export const getUsers = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_USERS,
+        payload: null
+      })
+    );
+};
+
+// Get user prices
+export const getUserPrices = id => dispatch => {
+  dispatch(setUserLoading());
+  axios
+    .get(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/userprices/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_USER,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_USER,
         payload: null
       })
     );

@@ -70,6 +70,12 @@ class Markets extends Component {
   componentDidMount() {
     this.props.getMarkets();
   }
+  /*componentDidUpdate(prevProps) {
+    if(!(this.props.markets, prevProps.markets)) 
+    {
+      this.props.getMarkets();
+    }
+  }*/
 
   render() {
     const { markets, loading } = this.props.market;

@@ -42,7 +42,7 @@ const Users = React.lazy(() => import("./views/Users/Users"));
 const Products = React.lazy(() => import("./views/Products/Products"));
 const Brands = React.lazy(() => import("./views/Brands/Brands"));
 const Markets = React.lazy(() => import("./views/Markets/Markets"));
-const User = React.lazy(() => import("./views/Users/Users"));
+const User = React.lazy(() => import("./views/Users/User"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -119,7 +119,7 @@ const routes = [
     name: "Markets",
     component: Markets
   },
-  { path: "/users/:id", exact: true, name: "User Details", component: User }
+  { path: "/user/:id", exact: true, name: "User Details", component: User }
 ];
 
 export default routes;

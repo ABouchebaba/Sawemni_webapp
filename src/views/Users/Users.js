@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import {
   Badge,
@@ -38,9 +39,10 @@ const checkban = (props, user) => {
 function UserRow(props) {
   let count = 0;
   const user = props.user;
-  
+  const userLink = `/user/${user.id}`
   return (
     <tr key={count++}>
+    <td><Link to={userLink}>{user.id}</Link></td>
       <td>{user.pseudo}</td>
       <td>{user.FName}</td>
       <td>{user.LName}</td>
@@ -52,16 +54,16 @@ function UserRow(props) {
       </td>
       <td>
           <Badge color={(user.canAddPrice === '1') ? 'success' : 'warning' }>
-          {(user.canAddPrice) === '1' ? 'Vérifié' : 'en cours'}</Badge>
+          {(user.canAddPrice) === '1' ? 'OUI' : 'NON'}</Badge>
       </td>
     
       <td style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           className="float-left mr-1"
-          color="danger"
+          color="secondary"
           onClick={() => checkban(props, user)}
         >
-          <i className="fa fa-spinner fa-trash" />
+          <i className="fa fa-spinner fa-circle-x" />
         </Button>
       </td>
     </tr>
@@ -98,6 +100,7 @@ class Users extends Component {
                   <Table responsive hover>
                     <thead>
                       <tr>
+                        <th scope="col">Profile</th>
                         <th scope="col">Pseudo</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
@@ -105,7 +108,7 @@ class Users extends Component {
                         <th scope="col">Tél</th>
                         <th scope="col">Type</th>
                         <th scope="col">Can</th>
-                        <th scope="col" />
+                        <th scope="col">changer<br/>permission</th>
                       </tr>
                     </thead>
                     <tbody>

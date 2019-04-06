@@ -7,7 +7,6 @@ import {
   MARKET_LOADING
 } from "../actions/types";
 import {
-  NotificationContainer,
   NotificationManager
 } from "react-notifications";
 

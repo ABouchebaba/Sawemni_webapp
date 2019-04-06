@@ -55,15 +55,15 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
                     <Form onSubmit={this.handleLogin}>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
+                      <h1>Se connecter</h1>
+                      <p className="text-muted">Connectez-vous à votre compte</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-user" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username"
+                        <Input type="text" placeholder="Adresse mail" autoComplete="username"
                           value={this.state.username} onChange={this.onChange} name="username"
                         />
                       </InputGroup>
@@ -73,7 +73,7 @@ class Login extends Component {
                             <i className="icon-lock" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password"
+                        <Input type="password" placeholder="mot de passe" autoComplete="current-password"
                           value={this.state.password} onChange={this.onChange} name="password"
                         />
                       </InputGroup>
@@ -82,15 +82,12 @@ class Login extends Component {
                           <Button
                             color="primary"
                             className="px-4"
-
                           >
-                            Login
+                            OK
                           </Button>
                         </Col>
                         <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0">
-                            Forgot password?
-                          </Button>
+                        
                         </Col>
                       </Row>
                     </Form>
