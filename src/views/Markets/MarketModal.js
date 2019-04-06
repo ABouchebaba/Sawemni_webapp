@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addMarket, updateMarket } from "../../actions/marketActions";
 import { ADD_MARKET } from "../../actions/types";
+import FileBase64 from "react-file-base64";
 
 class MarketModal extends Component {
   constructor(props) {
@@ -45,20 +46,22 @@ class MarketModal extends Component {
       [e.target.name]: e.target.value
     });
   }
-  onLogoChange(e) {
+  onLogoChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      logo: e
     });
-  }
+  };
   onSubmit(e) {
     const id = this.props.id;
     e.preventDefault();
-    const market = {
-      id: this.state.id,
-      name: this.state.name,
-      logo: this.state.logo,
-      isActive: this.state.isActive
-    };
+    const market = [
+      {
+        id: this.state.id,
+        name: this.state.name,
+        isActive: this.state.isActive
+      },
+      this.state.logo
+    ];
     if (id !== "") {
       this.props.updateMarket(id, market);
     } else {
@@ -66,7 +69,6 @@ class MarketModal extends Component {
     }
     this.setState({
       name: "",
-      logo: "",
       isActive: "",
       modal: false
     });
@@ -98,14 +100,13 @@ class MarketModal extends Component {
                   onChange={this.onChange}
                   placeholder="Nom du marché.."
                 />
+
                 <Label htmlFor="logo">Image</Label>
-                <Input
-                  type="text"
+                <FileBase64
                   id="logo"
                   name="logo"
-                  value={this.state.logo}
-                  onChange={this.onChange}
-                  placeholder="image du marché .."
+                  multiple={false}
+                  onDone={this.onLogoChange}
                 />
                 <Label htmlFor="isActive">état</Label>
                 <Input

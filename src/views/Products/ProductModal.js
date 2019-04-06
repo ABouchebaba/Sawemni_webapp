@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addProduct, updateProduct } from "../../actions/productActions";
 import { ADD_PRODUCT, UPDATE_PRODUCT } from "../../actions/types";
+import FileBase64 from "react-file-base64";
 
 class ProductModal extends Component {
   constructor(props) {
@@ -48,36 +49,42 @@ class ProductModal extends Component {
       [e.target.name]: e.target.value
     });
   }
-  onLogoChange(e) {
+
+  onLogoChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      imgURL: e
     });
-  }
+  };
+
   onSubmit(e) {
     const id = this.props.id;
     e.preventDefault();
-    const product = {
-      PName: this.state.PName,
-      category: this.state.category,
-      barcode: this.state.barcode,
-      producer: this.state.producer,
-      description: this.state.description,
-      RefPrice: this.state.RefPrice,
-      imgURL: this.state.imgURL
-    };
+
+    const product = [
+      {
+        PName: this.state.PName,
+        category: this.state.category,
+        barcode: this.state.barcode,
+        producer: this.state.producer,
+        description: this.state.description,
+        RefPrice: this.state.RefPrice
+      },
+      this.state.imgURL
+    ];
+
     if (id !== "") {
       this.props.updateProduct(id, product);
     } else {
       this.props.addProduct(product);
     }
     this.setState({
+      type: "",
       PName: "",
       category: "",
       barcode: "",
       producer: "",
       description: "",
       RefPrice: "",
-      imgURL: "",
       modal: false
     });
   }
@@ -97,7 +104,11 @@ class ProductModal extends Component {
             {this.state.type} un Produit
           </ModalHeader>
           <ModalBody>
-            <Form id="form1" onSubmit={this.onSubmit}>
+            <Form
+              id="form1"
+              onSubmit={this.onSubmit}
+              encType="application/x-www-form-urlencoded"
+            >
               <FormGroup>
                 <Label htmlFor="PName">Nom</Label>
                 <Input
@@ -153,14 +164,14 @@ class ProductModal extends Component {
                   onChange={this.onChange}
                   placeholder="prix du produit .."
                 />
-                <Label htmlFor="imgURL">image URL</Label>
-                <Input
-                  type="text"
+                <Label htmlFor="imgURL">Image </Label>
+
+                <Label htmlFor="imgURL">Image </Label>
+                <FileBase64
                   id="imgURL"
                   name="imgURL"
-                  value={this.state.imgURL}
-                  onChange={this.onChange}
-                  placeholder="url de l'image .."
+                  multiple={false}
+                  onDone={this.onLogoChange}
                 />
                 <FormText className="help-block">
                   Veuillez entrer les informations du produit
@@ -178,6 +189,7 @@ class ProductModal extends Component {
     );
   }
 }
+
 ProductModal.propTypes = {
   addProduct: PropTypes.func.isRequired,
   updateProduct: PropTypes.func.isRequired

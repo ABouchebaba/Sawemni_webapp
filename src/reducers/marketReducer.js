@@ -44,18 +44,22 @@ export default function(state = initialState, action) {
       return {
         ...state,
         markets: [
-          action.payload,
-          ...state.markets.filter(market => market.id !== action.payload.id)
+          ...state.markets.map(market => {
+            if (market.id !== action.payload.id) {
+              return market;
+            } else {
+              return action.payload;
+            }
+          })
         ]
       };
     case ADD_MARKET:
       NotificationManager.success("Ajout éffectué avec succés", "Ajout");
       return {
         ...state,
-        markets: [action.payload, ...state.markets]
+        markets: [...state.markets, action.payload]
       };
     case DELETE_MARKET:
-      console.log(action.payload);
       NotificationManager.success(
         "Suppression éffectuée avec succés",
         "Suppression"
