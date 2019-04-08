@@ -40,7 +40,6 @@ const Typography = React.lazy(() => import("./views/Theme/Typography"));
 const Widgets = React.lazy(() => import("./views/Widgets/Widgets"));
 const Users = React.lazy(() => import("./views/Users/Users"));
 const Products = React.lazy(() => import("./views/Products/Products"));
-const Brands = React.lazy(() => import("./views/Brands/Brands"));
 const Markets = React.lazy(() => import("./views/Markets/Markets"));
 const User = React.lazy(() => import("./views/Users/User"));
 
