@@ -31,6 +31,10 @@ export const DELETE_BRAND = "DELETE_BRAND";
 export const BRAND_LOADING = "BRAND_LOADING";
 
 export const GET_USERS = "GET_USERS";
-export const GET_USER= "GET_USER";
+export const GET_USER = "GET_USER";
 export const UPDATE_USER = "UPDATE_USER";
+export const BAN_USER = "BAN_USER";
 export const USER_LOADING = "USER_LOADING";
+
+export const GET_MARKET_PRICES = "GET_MARKET_PRICES";
+export const GET_MARKET_PRICES_LOADING = "GET_MARKET_PRICES_LOADING";

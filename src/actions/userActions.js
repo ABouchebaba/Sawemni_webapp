@@ -9,7 +9,6 @@ import {
   USER_LOADING
 } from "./types";
 
-
 // Update user
 export const updateUser = (id, fabData) => dispatch => {
   dispatch(clearErrors());
@@ -29,6 +28,25 @@ export const updateUser = (id, fabData) => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
+      })
+    );
+};
+
+export const banUser = id => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/users/ban/${id}`)
+    .then(res => {
+      //console.log(fabData);
+      return dispatch({
+        type: UPDATE_USER,
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.data
       })
     );
 };

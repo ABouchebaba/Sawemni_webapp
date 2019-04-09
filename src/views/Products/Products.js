@@ -18,6 +18,7 @@ import "react-notifications/lib/notifications.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { ADD_PRODUCT, UPDATE_PRODUCT } from "../../actions/types";
+import ProductPricesModal from "./ProductPricesModal";
 
 function ProductRow(props) {
   const product = props.product;
@@ -38,8 +39,9 @@ function ProductRow(props) {
         />
       </td>
       <td style={{ display: "flex", justifyContent: "flex-end" }}>
+        <ProductPricesModal id={product.id} btnColor="success" btnText="P" />
         <Button
-          className="float-left mr-1"
+          className="float-left mr-1 mf-1"
           color="danger"
           onClick={() => props.handleDelete(product.id)}
         >

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Badge,
@@ -13,58 +13,26 @@ import {
   Table
 } from "reactstrap";
 import Spinner from "../common/Spinner";
-import { getUsers, updateUser } from "../../actions/userActions";
+import { getUsers, updateUser, banUser } from "../../actions/userActions";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const checkban = (props, user) => {
-  confirmAlert({
-    title: "Confirmation",
-    message: "Etes-vous sure de vouloir banner cet utilisateur ?",
-    buttons: [
-      {
-        label: "Oui",
-        onClick: () => props.checkban(user.id)
-      },
-      {
-        label: "Non",
-        onClick: () => {}
-      }
-    ]
-  });
-};
-
 function UserRow(props) {
-  let count = 0;
   const user = props.user;
-  const userLink = `/user/${user.id}`
+  //const userLink = `/user/${user.id}`;
   return (
-    <tr key={count++}>
-    <td><Link to={userLink}>{user.id}</Link></td>
+    <tr key={user.id}>
       <td>{user.pseudo}</td>
       <td>{user.FName}</td>
       <td>{user.LName}</td>
       <td>{user.email}</td>
       <td>{user.phone}</td>
       <td>
-          <Badge color={(user.verified === '1') ? 'success' : 'warning'}>
-          {(user.verified === '1') ? 'Vérifié' : 'en cours'}</Badge>
-      </td>
-      <td>
-          <Badge color={(user.canAddPrice === '1') ? 'success' : 'warning' }>
-          {(user.canAddPrice) === '1' ? 'OUI' : 'NON'}</Badge>
-      </td>
-    
-      <td style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          className="float-left mr-1"
-          color="secondary"
-          onClick={() => checkban(props, user)}
-        >
-          <i className="fa fa-spinner fa-circle-x" />
-        </Button>
+        <Badge color={user.verified === "1" ? "success" : "warning"}>
+          {user.verified === "1" ? "Vérifié" : "en cours"}
+        </Badge>
       </td>
     </tr>
   );
@@ -74,6 +42,23 @@ class Users extends Component {
   componentDidMount() {
     this.props.getUsers();
   }
+
+  handleBan = user_id => {
+    confirmAlert({
+      title: "Confirmation",
+      message: "Etes-vous sure de vouloir banner cet utilisateur ?",
+      buttons: [
+        {
+          label: "Oui",
+          onClick: () => this.props.banUser(user_id)
+        },
+        {
+          label: "Non",
+          onClick: () => {}
+        }
+      ]
+    });
+  };
 
   render() {
     const { users, loading } = this.props.user;
@@ -100,15 +85,12 @@ class Users extends Component {
                   <Table responsive hover>
                     <thead>
                       <tr>
-                        <th scope="col">Profile</th>
                         <th scope="col">Pseudo</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
                         <th scope="col">email</th>
                         <th scope="col">Tél</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Can</th>
-                        <th scope="col">changer<br/>permission</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,7 +98,7 @@ class Users extends Component {
                         <UserRow
                           key={index}
                           user={user}
-                          checkban={this.props.updateUser}
+                          handleBan={this.handleBan}
                         />
                       ))}
                     </tbody>
@@ -138,6 +120,7 @@ class Users extends Component {
 Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
+  banUser: PropTypes.func.isRequired,
   User: PropTypes.object
 };
 
@@ -149,5 +132,5 @@ export { Users };
 
 export default connect(
   mapStateToProps,
-  { getUsers, updateUser }
+  { getUsers, updateUser, banUser }
 )(Users);
