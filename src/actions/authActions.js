@@ -1,13 +1,11 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
-import jwt_decode from 'jwt-decode';
-
 import { GET_ERRORS, SET_CURRENT_USER } from './types';
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
   axios
-    .post(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, userData)
+    .post(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/admin/login`, userData)
     .then(res => {
       // Save to localStorage
       const { token, user } = res.data;
@@ -30,20 +28,32 @@ export const loginUser = userData => dispatch => {
     );
 };
 
+// Delete Product
+export const logoutUser = id => dispatch => {
+  axios
+    .delete(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/admin/logout/${id}`)
+    .then(res =>{
+      localStorage.removeItem('jwtToken');
+      setAuthToken(false);
+      dispatch(setCurrentUser({}));
+    })
+    .catch(err => {
+      return dispatch({
+        type: GET_ERRORS,
+        payload: err.data
+      });
+    });
+};
 // Set logged in user
 export const setCurrentUser = user => {
   return {
     type: SET_CURRENT_USER,
-    payload: user
+    payload: user 
   };
 };
-
-// Log user out
-export const logoutUser = () => dispatch => {
-  // Remove token from localStorage
-  localStorage.removeItem('jwtToken');
-  // Remove auth header for future requests
-  setAuthToken(false);
-  // Set current user to {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
-};
+/* 
+      localStorage.removeItem('jwtToken');
+      setAuthToken(false);
+      dispatch(setCurrentUser({}));
+       
+*/

@@ -16,8 +16,8 @@ import {
   AppNavbarBrand,
   AppSidebarToggler
 } from '@coreui/react'
-import logo from '../../assets/img/brand/logo.png'
-import sygnet from '../../assets/img/brand/sygnet.png'
+import logo from '../../assets/img/brand/sawem.png'
+import sygnet from '../../assets/img/brand/swem.png'
 
 const propTypes = {
   children: PropTypes.node

@@ -28,7 +28,11 @@ function UserRow(props) {
       <td>{user.FName}</td>
       <td>{user.LName}</td>
       <td>{user.email}</td>
+      <td>{user.pseudo}</td>
       <td>{user.phone}</td>
+      <td>{user.fb_id}</td>
+      <td>{user.gm_id}</td>
+      <td>{user.created_at}</td>
       <td>
         <Badge color={user.verified === "1" ? "success" : "warning"}>
           {user.verified === "1" ? "Vérifié" : "en cours"}
@@ -85,12 +89,21 @@ class Users extends Component {
                   <Table responsive hover>
                     <thead>
                       <tr>
-                        <th scope="col">Pseudo</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
-                        <th scope="col">email</th>
+                        <th scope="col">Mail</th>
+                        <th scope="col">Pseudo</th>
                         <th scope="col">Tél</th>
-                        <th scope="col">Type</th>
+                        <th scope="col">Facebook</th>
+                        <th scope="col">Google</th>
+                        <th scope="col">crée le</th>
+                        <th scope="col">vérificaion</th>
+                        <th scope="col">ajout prix</th>
+                        <th scope="col">
+                          changer
+                          <br />
+                          permission
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
