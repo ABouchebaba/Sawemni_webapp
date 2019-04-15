@@ -24,7 +24,6 @@ function UserRow(props) {
   //const userLink = `/user/${user.id}`;
   return (
     <tr key={user.id}>
-      <td>{user.pseudo}</td>
       <td>{user.FName}</td>
       <td>{user.LName}</td>
       <td>{user.email}</td>
@@ -83,7 +82,7 @@ class Users extends Component {
             <Col xl={12}>
               <Card>
                 <CardHeader>
-                  <i className="fa fa-align-justify" /> Marques
+                  <i className="fa fa-align-justify" /> Utilisateurs
                 </CardHeader>
                 <CardBody>
                   <Table responsive hover>
@@ -98,12 +97,6 @@ class Users extends Component {
                         <th scope="col">Google</th>
                         <th scope="col">crée le</th>
                         <th scope="col">vérificaion</th>
-                        <th scope="col">ajout prix</th>
-                        <th scope="col">
-                          changer
-                          <br />
-                          permission
-                        </th>
                       </tr>
                     </thead>
                     <tbody>

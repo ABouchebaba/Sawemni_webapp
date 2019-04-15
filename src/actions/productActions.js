@@ -32,10 +32,12 @@ export const addProduct = data => dispatch => {
 
 // Update Product
 export const updateProduct = (id, data) => dispatch => {
+  //console.log(data);
   dispatch(clearErrors());
   axios
     .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products/${id}`, data)
     .then(res => {
+      console.log(res.data);
       return dispatch({
         type: UPDATE_PRODUCT,
         payload: res.data

@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table
-} from "reactstrap";
+import { Button, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 import Spinner from "../common/Spinner";
 import MarketModal from "./MarketModal";
 import { getMarkets, deleteMarket } from "../../actions/marketActions";
@@ -18,52 +10,54 @@ import "react-notifications/lib/notifications.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { ADD_MARKET, UPDATE_MARKET } from "../../actions/types";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function MarketRow(props) {
-  const market = props.market;
-  return (
-    <tr key={market.id}>
-      <td>{market.name}</td>
-      <td>
-        <img
-          src={process.env.REACT_APP_BACKEND_URL_LOCAL + "/" + market.logo}
-          width="75px"
-          height="75px"
-        />
-      </td>
-      <td>{market.isActive == 1 ? "Actif" : "Non Actif"}</td>
-      <td style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          className="float-left mr-1"
-          color="danger"
-          onClick={() => props.handleDelete(props, market)}
-        >
-          <i className="fa fa-spinner fa-trash" />
-        </Button>
-        <MarketModal
-          id={market.id}
-          type={UPDATE_MARKET}
-          name={market.name}
-          logo={market.logo}
-          isActive={market.isActive}
-          btnColor="warning"
-          btnText="&#9998;"
-        />
-      </td>
-    </tr>
-  );
-}
+import Img from "react-image";
+
+const { SearchBar } = Search;
 
 class Markets extends Component {
+  columns = [
+    {
+      dataField: "Logo",
+      text: "Logo",
+      formatter: (cell, row) => (
+        <Img
+          width="75px"
+          height="75px"
+          src={[
+            process.env.REACT_APP_BACKEND_URL_LOCAL + "/" + cell,
+            "../../assets/img/default.jpg"
+          ]}
+          alt={row.name}
+        />
+      )
+    },
+    {
+      dataField: "name",
+      text: "Nom"
+    },
+    {
+      dataField: "isActive",
+      text: "Etat",
+      formatter: cell => (cell == "1" ? "Actif" : "Inactif")
+    },
+    {
+      dataField: "df1",
+      isDummyField: true,
+      text: "Opérations",
+      formatter: this.operationFormatter,
+      formatExtraData: this
+    }
+  ];
+
   componentDidMount() {
     this.props.getMarkets();
   }
-  /*componentDidUpdate(prevProps) {
-    if(!(this.props.markets, prevProps.markets)) 
-    {
-      this.props.getMarkets();
-    }
-  }*/
 
   handleDelete = market_id => {
     confirmAlert({
@@ -81,6 +75,29 @@ class Markets extends Component {
       ]
     });
   };
+
+  operationFormatter(cell, row, index, extra) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          className="float-left mr-1"
+          color="danger"
+          onClick={() => extra.handleDelete(row.id)}
+        >
+          {<FontAwesomeIcon icon="trash" />}
+        </Button>
+        <MarketModal
+          id={row.id}
+          type={UPDATE_MARKET}
+          name={row.name}
+          logo={row.Logo}
+          isActive={row.isActive}
+          btnColor="primary"
+          btnText={<FontAwesomeIcon icon="pen" />} //"&#9998;"
+        />
+      </div>
+    );
+  }
 
   render() {
     const { markets, loading } = this.props.market;
@@ -101,28 +118,34 @@ class Markets extends Component {
             <Col xl={12}>
               <Card>
                 <CardHeader>
-                  <i className="fa fa-align-justify" /> Marques
+                  <i className="fa fa-align-justify" /> Marchés
                 </CardHeader>
                 <CardBody>
-                  <Table responsive hover>
-                    <thead>
-                      <tr>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Etat</th>
-                        <th scope="col" />
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {markets.map((market, index) => (
-                        <MarketRow
-                          key={index}
-                          market={market}
-                          handleDelete={this.deleteMarket}
+                  <ToolkitProvider
+                    keyField="id"
+                    data={markets}
+                    columns={this.columns}
+                    search
+                  >
+                    {props => (
+                      <div>
+                        <h3>Rechercher un Supermarcher:</h3>
+                        <SearchBar {...props.searchProps} />
+                        <hr />
+                        <BootstrapTable
+                          {...props.baseProps}
+                          keyField="id"
+                          columns={this.columns}
+                          data={markets}
+                          pagination={paginationFactory()}
+                          filter={filterFactory()}
+                          striped
+                          hover
+                          condensed
                         />
-                      ))}
-                    </tbody>
-                  </Table>
+                      </div>
+                    )}
+                  </ToolkitProvider>
                 </CardBody>
               </Card>
               <Row>

@@ -20,6 +20,7 @@ import FileBase64 from "react-file-base64";
 class ProductModal extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       modal: false,
       type: this.props.type === ADD_PRODUCT ? "Ajouter" : "Mettre à jour",
@@ -29,7 +30,7 @@ class ProductModal extends Component {
       producer: this.props.producer,
       description: this.props.description,
       RefPrice: this.props.RefPrice,
-      imgURL: this.props.imgURL,
+      imgURL: null,
       error: ""
     };
 
@@ -72,19 +73,21 @@ class ProductModal extends Component {
       this.state.imgURL
     ];
 
+    //console.log(product);
+
     if (id !== "") {
       this.props.updateProduct(id, product);
     } else {
       this.props.addProduct(product);
     }
     this.setState({
-      type: "",
+      /*type: "",
       PName: "",
       category: "",
       barcode: "",
       producer: "",
       description: "",
-      RefPrice: "",
+      RefPrice: "",*/
       modal: false
     });
   }
@@ -136,6 +139,7 @@ class ProductModal extends Component {
                   value={this.state.barcode}
                   onChange={this.onChange}
                   placeholder="Code-barre du produit.."
+                  pattern="[a-zA-Z0-9]+"
                 />
                 <Label htmlFor="producer">producer</Label>
                 <Input
@@ -147,7 +151,9 @@ class ProductModal extends Component {
                   placeholder="fabricant du produit .."
                 />
                 <Label htmlFor="description">description</Label>
-                <Input
+                <br />
+                <textarea
+                  className="form-control"
                   type="text"
                   id="description"
                   name="description"
@@ -157,16 +163,16 @@ class ProductModal extends Component {
                 />
                 <Label htmlFor="RefPrice">Prix de référence</Label>
                 <Input
-                  type="text"
+                  type="number"
                   id="RefPrice"
                   name="RefPrice"
                   value={this.state.RefPrice}
                   onChange={this.onChange}
                   placeholder="prix du produit .."
                 />
-                <Label htmlFor="imgURL">Image </Label>
 
                 <Label htmlFor="imgURL">Image </Label>
+                <br />
                 <FileBase64
                   id="imgURL"
                   name="imgURL"
@@ -180,7 +186,13 @@ class ProductModal extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button form="form1" type="submit" size="lg" color="primary">
+            <Button
+              form="form1"
+              type="submit"
+              size="lg"
+              color="primary"
+              className="mr-5"
+            >
               Soumettre
             </Button>
           </ModalFooter>

@@ -109,7 +109,7 @@ class ProductPricesModal extends Component {
                       <Label>{item.name}</Label>
                       <Input
                         id={item.id}
-                        type="text"
+                        type="number"
                         name={item.name}
                         value={price}
                         onChange={this.onChange}

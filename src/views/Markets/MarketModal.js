@@ -25,7 +25,7 @@ class MarketModal extends Component {
       type: this.props.type === ADD_MARKET ? "Ajouter" : "Mettre à jour",
       id: this.props.id,
       name: this.props.name,
-      logo: this.props.logo,
+      logo: null,
       isActive: this.props.isActive,
       error: ""
     };
@@ -62,14 +62,16 @@ class MarketModal extends Component {
       },
       this.state.logo
     ];
+
+    //console.log(market);
     if (id !== "") {
       this.props.updateMarket(id, market);
     } else {
       this.props.addMarket(market);
     }
     this.setState({
-      name: "",
-      isActive: "",
+      /*name: "",
+      isActive: "",*/
       modal: false
     });
   }
@@ -101,21 +103,28 @@ class MarketModal extends Component {
                   placeholder="Nom du marché.."
                 />
 
-                <Label htmlFor="logo">Image</Label>
-                <FileBase64
-                  id="logo"
-                  name="logo"
-                  multiple={false}
-                  onDone={this.onLogoChange}
-                />
                 <Label htmlFor="isActive">état</Label>
-                <Input
-                  type="text"
+                <br />
+                <select
                   id="isActive"
                   name="isActive"
                   value={this.state.isActive}
                   onChange={this.onChange}
                   placeholder="Etat du marché.."
+                  className="form-control"
+                >
+                  <option value="1">Actif</option>
+                  <option value="0">Inactif</option>
+                </select>
+
+                <Label htmlFor="logo">Image</Label>
+                <br />
+                <FileBase64
+                  id="logo"
+                  name="logo"
+                  multiple={false}
+                  onDone={this.onLogoChange}
+                  className="form-control"
                 />
                 <FormText className="help-block">
                   Veuillez entrer les informations du marché
