@@ -20,7 +20,7 @@ import FileBase64 from "react-file-base64";
 class ProductModal extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    //console.log(props);
     this.state = {
       modal: false,
       type: this.props.type === ADD_PRODUCT ? "Ajouter" : "Mettre à jour",

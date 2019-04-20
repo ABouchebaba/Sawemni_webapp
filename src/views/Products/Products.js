@@ -101,7 +101,7 @@ class Products extends Component {
   }
 
   operationFormatter(cell, row, index, extra) {
-    console.log(row.PName);
+    //console.log(row.PName);
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ProductPricesModal

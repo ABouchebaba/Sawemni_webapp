@@ -66,7 +66,7 @@ class Markets extends Component {
       buttons: [
         {
           label: "Oui",
-          onClick: () => this.props.handleDelete(market_id)
+          onClick: () => this.props.deleteMarket(market_id)
         },
         {
           label: "Non",

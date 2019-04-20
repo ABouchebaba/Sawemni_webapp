@@ -32,23 +32,24 @@ export const addProduct = data => dispatch => {
 
 // Update Product
 export const updateProduct = (id, data) => dispatch => {
-  //console.log(data);
+  console.log(data);
   dispatch(clearErrors());
+  //console.log(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products/${id}`);
   axios
     .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products/${id}`, data)
     .then(res => {
-      console.log(res.data);
+      //console.log(res.data);
       return dispatch({
         type: UPDATE_PRODUCT,
         payload: res.data
       });
     })
-    .catch(err =>
-      dispatch({
+    .catch(err => {
+      return dispatch({
         type: GET_ERRORS,
         payload: err.data
-      })
-    );
+      });
+    });
 };
 
 // Get Products

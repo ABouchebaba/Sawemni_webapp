@@ -42,12 +42,13 @@ export const updateMarket = (id, data) => dispatch => {
         payload: res.data
       });
     })
-    .catch(err =>
-      dispatch({
+    .catch(err => {
+      //console.log(err);
+      return dispatch({
         type: GET_ERRORS,
-        payload: err.data
-      })
-    );
+        payload: null
+      });
+    });
 };
 
 // Get Products
@@ -93,12 +94,12 @@ export const getMarket = id => dispatch => {
 export const deleteMarket = id => dispatch => {
   axios
     .delete(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/markets/${id}`)
-    .then(res =>
-      dispatch({
+    .then(res => {
+      return dispatch({
         type: DELETE_MARKET,
         payload: id
-      })
-    )
+      });
+    })
     .catch(err => {
       return dispatch({
         type: GET_ERRORS,
