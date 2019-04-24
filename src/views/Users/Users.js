@@ -25,7 +25,6 @@ function UserRow(props) {
   return (
     <tr key={user.id}>
       <td>{user.FName}</td>
-      <td>{user.LName}</td>
       <td>{user.email}</td>
       <td>{user.pseudo}</td>
       <td>{user.phone}</td>
@@ -88,8 +87,7 @@ class Users extends Component {
                   <Table responsive hover>
                     <thead>
                       <tr>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom complet</th>
                         <th scope="col">Mail</th>
                         <th scope="col">Pseudo</th>
                         <th scope="col">Tél</th>
