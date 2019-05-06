@@ -1,30 +1,41 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { loginUser } from '../../../actions/authActions';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
+import React, { Component } from "react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardGroup,
+  Col,
+  Container,
+  Form,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row
+} from "reactstrap";
+import { loginUser } from "../../../actions/authActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: ''
-    }
+      username: "",
+      password: ""
+    };
 
     this.onChange = this.onChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push("/dashboard");
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push("/dashboard");
     }
 
     if (nextProps.errors) {
@@ -39,10 +50,10 @@ class Login extends Component {
     const userData = {
       email: this.state.username,
       password: this.state.password
-    }
+    };
     this.props.loginUser(userData);
-    this.setState({ password: '' });
-    this.props.history.push('/');
+    this.setState({ password: "" });
+    this.props.history.push("/");
   }
 
   render() {
@@ -56,15 +67,22 @@ class Login extends Component {
                   <CardBody>
                     <Form onSubmit={this.handleLogin}>
                       <h1>Se connecter</h1>
-                      <p className="text-muted">Connectez-vous à votre compte</p>
+                      <p className="text-muted">
+                        Connectez-vous à votre compte
+                      </p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-user" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Adresse mail" autoComplete="username"
-                          value={this.state.username} onChange={this.onChange} name="username"
+                        <Input
+                          type="text"
+                          placeholder="Adresse mail"
+                          autoComplete="username"
+                          value={this.state.username}
+                          onChange={this.onChange}
+                          name="username"
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
@@ -73,22 +91,22 @@ class Login extends Component {
                             <i className="icon-lock" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="mot de passe" autoComplete="current-password"
-                          value={this.state.password} onChange={this.onChange} name="password"
+                        <Input
+                          type="password"
+                          placeholder="mot de passe"
+                          autoComplete="current-password"
+                          value={this.state.password}
+                          onChange={this.onChange}
+                          name="password"
                         />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button
-                            color="primary"
-                            className="px-4"
-                          >
+                          <Button color="primary" className="px-4">
                             OK
                           </Button>
                         </Col>
-                        <Col xs="6" className="text-right">
-                        
-                        </Col>
+                        <Col xs="6" className="text-right" />
                       </Row>
                     </Form>
                   </CardBody>
@@ -98,18 +116,20 @@ class Login extends Component {
           </Row>
         </Container>
       </div>
-    )
+    );
   }
 }
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
-
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);

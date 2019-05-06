@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 import Spinner from "../common/Spinner";
-import ProductModal from "./ProductModal.js";
-import { getProducts, deleteProduct } from "../../actions/productActions";
+import MarketModal from "./MarketModal";
+import { getMarkets, deleteMarket } from "../../actions/marketActions";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { ADD_PRODUCT, UPDATE_PRODUCT } from "../../actions/types";
-import ProductPricesModal from "./ProductPricesModal";
+import { ADD_MARKET, UPDATE_MARKET } from "../../actions/types";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
@@ -21,11 +20,11 @@ import Img from "react-image";
 
 const { SearchBar } = Search;
 
-class Products extends Component {
+class Markets extends Component {
   columns = [
     {
-      dataField: "imgURL",
-      text: "Image",
+      dataField: "Logo",
+      text: "Logo",
       formatter: (cell, row) => (
         <Img
           width="75px"
@@ -34,34 +33,18 @@ class Products extends Component {
             process.env.REACT_APP_BACKEND_URL_LOCAL + "/" + cell,
             "../../assets/img/default.jpg"
           ]}
-          alt={row.PName}
+          alt={row.name}
         />
       )
     },
     {
-      dataField: "PName",
+      dataField: "name",
       text: "Nom"
-      //filter: textFilter()
     },
     {
-      dataField: "category",
-      text: "Catégorie"
-    },
-    {
-      dataField: "barcode",
-      text: "Code-barres"
-    },
-    {
-      dataField: "producer",
-      text: "Fabriquant"
-    },
-    {
-      dataField: "description",
-      text: "Description"
-    },
-    {
-      dataField: "RefPrice",
-      text: "Prix Ref"
+      dataField: "isActive",
+      text: "Etat",
+      formatter: cell => (cell === "1" ? "Actif" : "Inactif")
     },
     {
       dataField: "df1",
@@ -71,18 +54,19 @@ class Products extends Component {
       formatExtraData: this
     }
   ];
+
   componentDidMount() {
-    this.props.getProducts();
+    this.props.getMarkets();
   }
 
-  handleDelete(product_id) {
+  handleDelete = market_id => {
     confirmAlert({
       title: "Confirmation",
-      message: "Etes-vous sure de vouloir supprimer ce produit ?",
+      message: "Etes-vous sure de vouloir supprimer ce supermarché ?",
       buttons: [
         {
           label: "Oui",
-          onClick: () => this.props.deleteProduct(product_id)
+          onClick: () => this.props.deleteMarket(market_id)
         },
         {
           label: "Non",
@@ -90,36 +74,24 @@ class Products extends Component {
         }
       ]
     });
-  }
+  };
 
   operationFormatter(cell, row, index, extra) {
-    //console.log(row.PName);
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <ProductPricesModal
-          id={row.id}
-          btnColor="success"
-          btnText={<FontAwesomeIcon icon="store" />}
-        />
         <Button
-          className="ml-2 mr-2 "
+          className="float-left mr-1"
           color="danger"
-          onClick={() => {
-            extra.handleDelete(row.id);
-          }}
+          onClick={() => extra.handleDelete(row.id)}
         >
           {<FontAwesomeIcon icon="trash" />}
         </Button>
-        <ProductModal
+        <MarketModal
           id={row.id}
-          type={UPDATE_PRODUCT}
-          PName={row.PName}
-          barcode={row.barcode}
-          category={row.category}
-          producer={row.producer}
-          description={row.description}
-          RefPrice={row.RefPrice}
-          imgURL={row.imgURL}
+          type={UPDATE_MARKET}
+          name={row.name}
+          logo={row.Logo}
+          isActive={row.isActive}
           btnColor="primary"
           btnText={<FontAwesomeIcon icon="pen" />} //"&#9998;"
         />
@@ -128,9 +100,8 @@ class Products extends Component {
   }
 
   render() {
-    const { products, loading } = this.props.product;
-
-    if (!products || loading) {
+    const { markets, loading } = this.props.market;
+    if (!markets || loading) {
       return (
         <div className="animated fadeIn">
           <Row>
@@ -147,25 +118,25 @@ class Products extends Component {
             <Col xl={12}>
               <Card>
                 <CardHeader>
-                  <i className="fa fa-align-justify" /> Produits
+                  <i className="fa fa-align-justify" /> Magasins
                 </CardHeader>
                 <CardBody>
                   <ToolkitProvider
                     keyField="id"
-                    data={products}
+                    data={markets}
                     columns={this.columns}
                     search
                   >
                     {props => (
                       <div>
-                        <h3>Rechercher un produit:</h3>
+                        <h3>Rechercher un magasin:</h3>
                         <SearchBar {...props.searchProps} />
                         <hr />
                         <BootstrapTable
                           {...props.baseProps}
                           keyField="id"
                           columns={this.columns}
-                          data={products}
+                          data={markets}
                           pagination={paginationFactory()}
                           filter={filterFactory()}
                           striped
@@ -179,19 +150,14 @@ class Products extends Component {
               </Card>
               <Row>
                 <Col xl={12}>
-                  <ProductModal
+                  <MarketModal
                     id=""
-                    type={ADD_PRODUCT}
-                    PName=""
-                    category=""
-                    barcode=""
-                    producer=""
-                    description=""
-                    RefPrice=""
-                    imgURL=""
+                    type={ADD_MARKET}
+                    name=""
+                    logo=""
+                    isActive=""
                     btnColor="primary"
                     btnText="Ajouter"
-                    className="Ajouteurssss"
                   />
                 </Col>
               </Row>
@@ -207,19 +173,19 @@ class Products extends Component {
   }
 }
 
-Products.propTypes = {
-  getProducts: PropTypes.func.isRequired,
-  deleteProduct: PropTypes.func.isRequired,
-  product: PropTypes.object
+Markets.propTypes = {
+  getMarkets: PropTypes.func.isRequired,
+  deleteMarket: PropTypes.func.isRequired,
+  market: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  product: state.product
+  market: state.market
 });
 
-export { Products };
+export { Markets };
 
 export default connect(
   mapStateToProps,
-  { getProducts, deleteProduct }
-)(Products);
+  { getMarkets, deleteMarket }
+)(Markets);

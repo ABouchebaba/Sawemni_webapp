@@ -8,7 +8,8 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT,
   DELETE_PRODUCT,
-  PRODUCT_LOADING
+  PRODUCT_LOADING,
+  GET_PRODUCTS_ERROR
 } from "./types";
 
 // Add Product
@@ -58,6 +59,14 @@ export const getProducts = () => dispatch => {
   axios
     .get(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/products`)
     .then(res => {
+      if (res.data.error) {
+        console.log(res.data.error);
+        return dispatch({
+          type: GET_PRODUCTS_ERROR,
+          payload: res.data
+        });
+      }
+
       return dispatch({
         type: GET_PRODUCTS,
         payload: res.data

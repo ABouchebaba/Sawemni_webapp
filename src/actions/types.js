@@ -15,6 +15,7 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const PRODUCT_LOADING = "PRODUCT_LOADING";
+export const GET_PRODUCTS_ERROR = "GET_PRODUCTS_ERROR";
 
 export const GET_MARKETS = "GET_MARKETS";
 export const GET_MARKET = "GET_MARKET";

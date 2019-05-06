@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -34,12 +34,16 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault();
-    console.log(this.props.auth.user.user_id);
-    if (this.props.auth.user.user_id) {
+    console.log("onSignout : ");
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    this.props.logoutUser(user.id);
+
+    /*if (this.props.auth.user.user_id) {
       this.props.logoutUser(this.props.auth.user.user_id);
     } else {
       this.props.logoutUser(this.props.auth.user.id);
-    }
+    }*/
     this.props.history.push("/login");
   }
 
@@ -105,7 +109,7 @@ DefaultLayout.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.user
 });
 
 export default connect(

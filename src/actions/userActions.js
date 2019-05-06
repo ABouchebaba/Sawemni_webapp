@@ -15,7 +15,7 @@ export const updateUser = (id, fabData) => dispatch => {
   axios
     .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/users/${id}`)
     .then(res => {
-      console.log(fabData);
+      //console.log(fabData);
       return dispatch({
         type: UPDATE_USER,
         payload: {
@@ -57,7 +57,7 @@ export const getUsers = () => dispatch => {
   axios
     .get(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/users`)
     .then(res => {
-      console.log(res);
+      //console.log(res);
       return dispatch({
         type: GET_USERS,
         payload: res.data

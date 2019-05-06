@@ -1,47 +1,57 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table
-} from "reactstrap";
+import { Badge, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 import Spinner from "../common/Spinner";
 import { getUsers, updateUser, banUser } from "../../actions/userActions";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import filterFactory from "react-bootstrap-table2-filter";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
-function UserRow(props) {
-  const user = props.user;
-  //const userLink = `/user/${user.id}`;
-  return (
-    <tr key={user.id}>
-      <td>{user.FName}</td>
-      <td>{user.LName}</td>
-      <td>{user.email}</td>
-      <td>{user.pseudo}</td>
-      <td>{user.phone}</td>
-      <td>{user.fb_id}</td>
-      <td>{user.gm_id}</td>
-      <td>{user.created_at}</td>
-      <td>
-        <Badge color={user.verified === "1" ? "success" : "warning"}>
-          {user.verified === "1" ? "Vérifié" : "en cours"}
-        </Badge>
-      </td>
-    </tr>
-  );
-}
+const { SearchBar } = Search;
 
 class Users extends Component {
+  columns = [
+    {
+      dataField: "FName",
+      text: "Nom complet"
+    },
+    {
+      dataField: "email",
+      text: "Email"
+    },
+    {
+      dataField: "pseudo",
+      text: "Pseudo"
+    },
+    {
+      dataField: "fb_id",
+      text: "Facebook ID"
+    },
+    {
+      dataField: "gm_id",
+      text: "Google ID"
+    },
+    {
+      dataField: "verified",
+      text: "Vérifié(e)",
+      formatter: cell => (
+        <Badge color={cell === "1" ? "success" : "warning"}>
+          {cell === "1" ? "Vérifié" : "en cours"}
+        </Badge>
+      )
+    },
+    {
+      dataField: "created_at",
+      text: "crée le"
+    }
+  ];
+
   componentDidMount() {
     this.props.getUsers();
   }
@@ -85,30 +95,31 @@ class Users extends Component {
                   <i className="fa fa-align-justify" /> Utilisateurs
                 </CardHeader>
                 <CardBody>
-                  <Table responsive hover>
-                    <thead>
-                      <tr>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Mail</th>
-                        <th scope="col">Pseudo</th>
-                        <th scope="col">Tél</th>
-                        <th scope="col">Facebook</th>
-                        <th scope="col">Google</th>
-                        <th scope="col">crée le</th>
-                        <th scope="col">vérificaion</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {users.map((user, index) => (
-                        <UserRow
-                          key={index}
-                          user={user}
-                          handleBan={this.handleBan}
+                  <ToolkitProvider
+                    keyField="id"
+                    data={users}
+                    columns={this.columns}
+                    search
+                  >
+                    {props => (
+                      <div>
+                        <h3>Rechercher un utilisateur:</h3>
+                        <SearchBar {...props.searchProps} />
+                        <hr />
+                        <BootstrapTable
+                          {...props.baseProps}
+                          keyField="id"
+                          columns={this.columns}
+                          data={users}
+                          pagination={paginationFactory()}
+                          filter={filterFactory()}
+                          striped
+                          hover
+                          condensed
                         />
-                      ))}
-                    </tbody>
-                  </Table>
+                      </div>
+                    )}
+                  </ToolkitProvider>
                 </CardBody>
               </Card>
 

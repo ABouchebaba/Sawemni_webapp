@@ -12,7 +12,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { ADD_MARKET, UPDATE_MARKET } from "../../actions/types";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import filterFactory from "react-bootstrap-table2-filter";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -44,7 +44,7 @@ class Markets extends Component {
     {
       dataField: "isActive",
       text: "Etat",
-      formatter: cell => (cell == "1" ? "Actif" : "Inactif")
+      formatter: cell => (cell === "1" ? "Actif" : "Inactif")
     },
     {
       dataField: "df1",
@@ -183,7 +183,7 @@ const mapStateToProps = state => ({
   market: state.market
 });
 
-export { Markets };
+//export { Markets };
 
 export default connect(
   mapStateToProps,

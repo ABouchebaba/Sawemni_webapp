@@ -121,7 +121,6 @@ class ProductModal extends Component {
                   value={this.state.PName}
                   onChange={this.onChange}
                   placeholder="Nom du produit.."
-                  //required
                 />
                 <Label htmlFor="category">categorie</Label>
                 <Input
@@ -141,7 +140,6 @@ class ProductModal extends Component {
                   onChange={this.onChange}
                   placeholder="Code-barre du produit.."
                   pattern="[a-zA-Z0-9]+"
-                  //required
                 />
                 <Label htmlFor="producer">producer</Label>
                 <Input
@@ -171,7 +169,6 @@ class ProductModal extends Component {
                   value={this.state.RefPrice}
                   onChange={this.onChange}
                   placeholder="prix du produit .."
-                  //required
                 />
 
                 <Label htmlFor="imgURL">Image </Label>

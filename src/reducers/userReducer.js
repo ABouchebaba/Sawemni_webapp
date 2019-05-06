@@ -5,10 +5,7 @@ import {
   BAN_USER,
   USER_LOADING
 } from "../actions/types";
-import {
-  NotificationContainer,
-  NotificationManager
-} from "react-notifications";
+import { NotificationManager } from "react-notifications";
 
 const initialState = {
   users: [],

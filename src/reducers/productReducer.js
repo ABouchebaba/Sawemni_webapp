@@ -4,17 +4,16 @@ import {
   GET_PRODUCT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
-  PRODUCT_LOADING
+  PRODUCT_LOADING,
+  GET_PRODUCTS_ERROR
 } from "../actions/types";
-import {
-  NotificationContainer,
-  NotificationManager
-} from "react-notifications";
+import { NotificationManager } from "react-notifications";
 
 const initialState = {
   products: [],
   product: {},
-  loading: false
+  loading: false,
+  authenticated: true
 };
 
 export default function(state = initialState, action) {
@@ -70,6 +69,12 @@ export default function(state = initialState, action) {
           ...state.products.filter(product => product.id !== action.payload)
         ]
       };
+    case GET_PRODUCTS_ERROR:
+      return {
+        ...state,
+        authenticated: false
+      };
+
     default:
       return state;
   }

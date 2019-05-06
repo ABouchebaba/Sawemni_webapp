@@ -101,7 +101,6 @@ class MarketModal extends Component {
                   value={this.state.name}
                   onChange={this.onChange}
                   placeholder="Nom du marché.."
-                  //required
                 />
 
                 <Label htmlFor="isActive">état</Label>

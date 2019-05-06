@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Row
+} from "reactstrap";
 import Spinner from "../common/Spinner";
 import ProductModal from "./ProductModal.js";
 import { getProducts, deleteProduct } from "../../actions/productActions";
@@ -129,7 +136,6 @@ class Products extends Component {
 
   render() {
     const { products, loading } = this.props.product;
-
     if (!products || loading) {
       return (
         <div className="animated fadeIn">
