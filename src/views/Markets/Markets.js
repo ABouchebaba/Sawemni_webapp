@@ -118,7 +118,7 @@ class Markets extends Component {
             <Col xl={12}>
               <Card>
                 <CardHeader>
-                  <i className="fa fa-align-justify" /> Marchés
+                  <i className="fa fa-align-justify" /> Magasins
                 </CardHeader>
                 <CardBody>
                   <ToolkitProvider
@@ -129,7 +129,7 @@ class Markets extends Component {
                   >
                     {props => (
                       <div>
-                        <h3>Rechercher un Supermarcher:</h3>
+                        <h3>Rechercher un magasin:</h3>
                         <SearchBar {...props.searchProps} />
                         <hr />
                         <BootstrapTable

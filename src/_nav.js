@@ -3,7 +3,7 @@ export default {
     {
       name: "Tableau de bord",
       url: "/dashboard",
-      icon: "icon-speedometer"
+      icon: "icon-home"
     },
     {
       title: true,
@@ -22,7 +22,7 @@ export default {
     {
       name: "Gestion Utilisateurs",
       url: "/users",
-      icon: "icon-pencil"
+      icon: "icon-people"
     }
   ]
 };
