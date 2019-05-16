@@ -38,12 +38,13 @@ export default function(state = initialState, action) {
         "Mise à jour éffectuée avec succés",
         "Mise à jour"
       );
+      //console.log(action.payload);
       return {
         ...state,
         users: [
-          ...state.products.map(product => {
-            if (product.id !== action.payload.id) {
-              return product;
+          ...state.users.map(user => {
+            if (user.idUser !== action.payload.idUser) {
+              return user;
             } else {
               return action.payload;
             }
@@ -58,10 +59,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         users: [
-          ...state.products.map(product => {
-            if (product.id !== action.payload.id) {
-              return product;
+          ...state.users.map(user => {
+            console.log(user.idUser + " " + action.payload.idUser);
+            if (user.id != action.payload.idUser) {
+              return user;
             } else {
+              console.log("entered there");
               return action.payload;
             }
           })

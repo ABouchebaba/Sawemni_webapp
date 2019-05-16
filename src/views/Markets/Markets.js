@@ -121,6 +121,20 @@ class Markets extends Component {
                   <i className="fa fa-align-justify" /> Magasins
                 </CardHeader>
                 <CardBody>
+                  <Row>
+                    <Col xl={12}>
+                      <MarketModal
+                        id=""
+                        type={ADD_MARKET}
+                        name=""
+                        logo=""
+                        isActive="1"
+                        btnColor="primary"
+                        btnText="Ajouter"
+                      />
+                    </Col>
+                  </Row>
+
                   <ToolkitProvider
                     keyField="id"
                     data={markets}
@@ -148,19 +162,6 @@ class Markets extends Component {
                   </ToolkitProvider>
                 </CardBody>
               </Card>
-              <Row>
-                <Col xl={12}>
-                  <MarketModal
-                    id=""
-                    type={ADD_MARKET}
-                    name=""
-                    logo=""
-                    isActive=""
-                    btnColor="primary"
-                    btnText="Ajouter"
-                  />
-                </Col>
-              </Row>
 
               <br />
               <br />

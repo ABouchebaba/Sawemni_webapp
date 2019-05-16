@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Badge, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
+import {
+  Button,
+  Badge,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Row
+} from "reactstrap";
 import Spinner from "../common/Spinner";
 import { getUsers, updateUser, banUser } from "../../actions/userActions";
 import { NotificationContainer } from "react-notifications";
@@ -12,6 +20,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory from "react-bootstrap-table2-filter";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const { SearchBar } = Search;
 
@@ -47,8 +56,24 @@ class Users extends Component {
       )
     },
     {
+      dataField: "canAddprice",
+      text: "Etat",
+      formatter: cell => (
+        <Badge color={cell === "1" ? "success" : "danger"}>
+          {cell === "1" ? "Autorisé(e)" : "Banni(e)"}
+        </Badge>
+      )
+    },
+    {
       dataField: "created_at",
       text: "crée le"
+    },
+    {
+      dataField: "df1",
+      isDummyField: true,
+      text: "Opérations",
+      formatter: this.operationFormatter,
+      formatExtraData: this
     }
   ];
 
@@ -59,7 +84,7 @@ class Users extends Component {
   handleBan = user_id => {
     confirmAlert({
       title: "Confirmation",
-      message: "Etes-vous sure de vouloir banner cet utilisateur ?",
+      message: "Etes-vous sure de vouloir bannir cet utilisateur ?",
       buttons: [
         {
           label: "Oui",
@@ -72,6 +97,21 @@ class Users extends Component {
       ]
     });
   };
+
+  operationFormatter(cell, row, index, extra) {
+    //console.log(row);
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          className="float-left mr-1"
+          color="danger"
+          onClick={() => extra.handleBan(row.id)}
+        >
+          {<FontAwesomeIcon icon="ban" />}
+        </Button>
+      </div>
+    );
+  }
 
   render() {
     const { users, loading } = this.props.user;

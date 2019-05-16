@@ -6,7 +6,8 @@ import {
   GET_USER,
   CLEAR_ERRORS,
   GET_USERS,
-  USER_LOADING
+  USER_LOADING,
+  BAN_USER
 } from "./types";
 
 // Update user
@@ -34,21 +35,23 @@ export const updateUser = (id, fabData) => dispatch => {
 
 export const banUser = id => dispatch => {
   dispatch(clearErrors());
+  //console.log(id);
   axios
     .put(`${process.env.REACT_APP_BACKEND_URL_LOCAL}/users/ban/${id}`)
     .then(res => {
-      //console.log(fabData);
+      //console.log(res.data.id);
       return dispatch({
-        type: UPDATE_USER,
+        type: BAN_USER,
         payload: res.data
       });
     })
-    .catch(err =>
-      dispatch({
+    .catch(err => {
+      console.log(err);
+      return dispatch({
         type: GET_ERRORS,
-        payload: err.data
-      })
-    );
+        payload: err
+      });
+    });
 };
 
 // Get users

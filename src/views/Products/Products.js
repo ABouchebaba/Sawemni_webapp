@@ -150,6 +150,25 @@ class Products extends Component {
                   <i className="fa fa-align-justify" /> Produits
                 </CardHeader>
                 <CardBody>
+                  <Row>
+                    <Col xl={12}>
+                      <ProductModal
+                        id=""
+                        type={ADD_PRODUCT}
+                        PName=""
+                        category=""
+                        barcode=""
+                        producer=""
+                        description=""
+                        RefPrice=""
+                        imgURL=""
+                        btnColor="primary"
+                        btnText="Ajouter"
+                        className="Ajouteurssss"
+                      />
+                    </Col>
+                  </Row>
+
                   <ToolkitProvider
                     keyField="id"
                     data={products}
@@ -177,24 +196,6 @@ class Products extends Component {
                   </ToolkitProvider>
                 </CardBody>
               </Card>
-              <Row>
-                <Col xl={12}>
-                  <ProductModal
-                    id=""
-                    type={ADD_PRODUCT}
-                    PName=""
-                    category=""
-                    barcode=""
-                    producer=""
-                    description=""
-                    RefPrice=""
-                    imgURL=""
-                    btnColor="primary"
-                    btnText="Ajouter"
-                    className="Ajouteurssss"
-                  />
-                </Col>
-              </Row>
 
               <br />
               <br />

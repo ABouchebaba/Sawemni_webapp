@@ -8,9 +8,14 @@ import setAuthToken from "./utils/setAuthToken";
 import { Provider } from "react-redux";
 import store from "./store";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faStore, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStore,
+  faPen,
+  faTrash,
+  faBan
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faStore, faPen, faTrash);
+library.add(faStore, faPen, faTrash, faBan);
 // Check for token
 if (localStorage.jwtToken) {
   // Set auth token header auth

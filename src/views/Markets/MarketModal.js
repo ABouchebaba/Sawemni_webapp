@@ -114,7 +114,9 @@ class MarketModal extends Component {
                   placeholder="Etat du marché.."
                   className="form-control"
                 >
-                  <option value="1">Actif</option>
+                  <option value="1" selected>
+                    Actif
+                  </option>
                   <option value="0">Inactif</option>
                 </select>
 
