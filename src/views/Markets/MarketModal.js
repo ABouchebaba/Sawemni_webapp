@@ -26,6 +26,11 @@ class MarketModal extends Component {
       id: this.props.id,
       name: this.props.name,
       logo: null,
+      adresse: this.props.adresse,
+      tel: this.props.tel,
+      position: this.props.position,
+      contact: this.props.contact,
+      wilaya: this.props.wilaya,
       isActive: this.props.isActive,
       error: ""
     };
@@ -58,7 +63,12 @@ class MarketModal extends Component {
       {
         id: this.state.id,
         name: this.state.name,
-        isActive: this.state.isActive
+        isActive: this.state.isActive,
+        adresse: this.state.adresse,
+        tel: this.state.tel,
+        position: this.state.position,
+        contact: this.state.contact,
+        wilaya: this.state.wilaya
       },
       this.state.logo
     ];
@@ -104,6 +114,61 @@ class MarketModal extends Component {
                   //required
                 />
 
+                <Label htmlFor="adresse">Adresse</Label>
+                <Input
+                  type="text"
+                  id="adresse"
+                  name="adresse"
+                  value={this.state.adresse}
+                  onChange={this.onChange}
+                  placeholder="Adresse du marché.."
+                  //required
+                />
+
+                <Label htmlFor="tel">Téléphone</Label>
+                <Input
+                  type="text"
+                  id="tel"
+                  name="tel"
+                  value={this.state.tel}
+                  onChange={this.onChange}
+                  placeholder="Téléphone du marché.."
+                  //required
+                />
+
+                <Label htmlFor="position">Position</Label>
+                <Input
+                  type="text"
+                  id="position"
+                  name="position"
+                  value={this.state.position}
+                  onChange={this.onChange}
+                  placeholder="Position du marché.."
+                  //required
+                />
+
+                <Label htmlFor="contact">Contact</Label>
+                <Input
+                  type="text"
+                  id="contact"
+                  name="contact"
+                  value={this.state.contact}
+                  onChange={this.onChange}
+                  placeholder="Contact du marché.."
+                  //required
+                />
+
+                <Label htmlFor="wilaya">Wilaya</Label>
+                <Input
+                  type="text"
+                  id="wilaya"
+                  name="wilaya"
+                  value={this.state.wilaya}
+                  onChange={this.onChange}
+                  placeholder="Wilaya du marché.."
+                  //required
+                />
+
                 <Label htmlFor="isActive">état</Label>
                 <br />
                 <select
@@ -114,9 +179,7 @@ class MarketModal extends Component {
                   placeholder="Etat du marché.."
                   className="form-control"
                 >
-                  <option value="1" selected>
-                    Actif
-                  </option>
+                  <option value="1">Actif</option>
                   <option value="0">Inactif</option>
                 </select>
 

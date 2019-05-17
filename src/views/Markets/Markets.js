@@ -42,6 +42,26 @@ class Markets extends Component {
       text: "Nom"
     },
     {
+      dataField: "Adresse",
+      text: "Adresse"
+    },
+    {
+      dataField: "Wilaya",
+      text: "Wilaya"
+    },
+    {
+      dataField: "Tel",
+      text: "Téléphone"
+    },
+    {
+      dataField: "Position",
+      text: "Position"
+    },
+    {
+      dataField: "Contact",
+      text: "Contacte"
+    },
+    {
       dataField: "isActive",
       text: "Etat",
       formatter: cell => (cell === "1" ? "Actif" : "Inactif")
@@ -91,6 +111,11 @@ class Markets extends Component {
           type={UPDATE_MARKET}
           name={row.name}
           logo={row.Logo}
+          adresse={row.Adresse}
+          tel={row.Tel}
+          position={row.Position}
+          contact={row.Contact}
+          wilaya={row.Wilaya}
           isActive={row.isActive}
           btnColor="primary"
           btnText={<FontAwesomeIcon icon="pen" />} //"&#9998;"
@@ -128,6 +153,11 @@ class Markets extends Component {
                         type={ADD_MARKET}
                         name=""
                         logo=""
+                        adresse=""
+                        tel=""
+                        position=""
+                        contact=""
+                        wilaya=""
                         isActive="1"
                         btnColor="primary"
                         btnText="Ajouter"
