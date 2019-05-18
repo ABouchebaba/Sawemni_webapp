@@ -10,6 +10,7 @@ import {
   Col,
   Row
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { getUsers, updateUser, banUser } from "../../actions/userActions";
 import { NotificationContainer } from "react-notifications";
@@ -28,7 +29,11 @@ class Users extends Component {
   columns = [
     {
       dataField: "FName",
-      text: "Nom complet"
+      text: "Nom complet",
+      formatter: (cell, row) => {
+        let userLink = `/user/${row.id}`;
+        return <Link to={userLink}>{cell}</Link>;
+      }
     },
     {
       dataField: "email",

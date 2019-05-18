@@ -187,9 +187,11 @@ class Products extends Component {
                           data={products}
                           pagination={paginationFactory()}
                           filter={filterFactory()}
+                          className="table-responsive"
                           striped
                           hover
                           condensed
+                          responsive
                         />
                       </div>
                     )}
